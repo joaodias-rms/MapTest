@@ -10,7 +10,13 @@ import Directions from '../Directions';
 import {getPixelSize} from '../../utils';
 import markerImg from '../../assets/marker.png';
 
-import {LocationBox, LocationText} from './styles';
+import {
+  LocationBox,
+  LocationText,
+  LocationTimeBox,
+  LocationTimeText,
+  LocationTimeSmall,
+} from './styles';
 
 export default class Map extends Component {
   state = {
@@ -81,6 +87,20 @@ export default class Map extends Component {
                   });
                 }}
               />
+
+              <Marker
+                coordinate={region}
+                anchor={{x: 0, y: 0}}
+                image={markerImg}>
+                <LocationBox>
+                  <LocationTimeBox>
+                    <LocationTimeText>31</LocationTimeText>
+                    <LocationTimeSmall>M</LocationTimeSmall>
+                  </LocationTimeBox>
+                  <LocationText>Rua das gerberas</LocationText>
+                </LocationBox>
+              </Marker>
+
               <Marker
                 coordinate={destination}
                 anchor={{x: 0, y: 0}}
