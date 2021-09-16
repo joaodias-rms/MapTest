@@ -5485,6 +5485,11 @@ react-native-device-info@^8.3.2:
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-8.3.2.tgz#6039746adced97593b5b3b105c90f743bc1ce855"
   integrity sha512-TgCrA2Pk+DC+IBhN8kH+x1wTFRSFW9q9UC70rAxf1Qe0q0Fwoxx8szYnGs+kD1TK3yn/5MIZnNNvzUl82INhZQ==
 
+react-native-geocoding@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/react-native-geocoding/-/react-native-geocoding-0.5.0.tgz#69748f896047a63d1c3c1d55255f9d67c8e275c2"
+  integrity sha512-peTXRpRxPLiZpbTW43AOvoXXAEoS+eLnSo4KRY0hcL9F2hulWE5r7o5KiaLx8AWj35c6EJP3fdGHe754q2Gd2Q==
+
 react-native-google-places-autocomplete@^2.4.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/react-native-google-places-autocomplete/-/react-native-google-places-autocomplete-2.4.1.tgz#16b02a330890adf0232954a286f4c3203df06355"
