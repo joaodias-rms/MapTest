@@ -4,11 +4,14 @@ import {View} from 'react-native';
 
 import MapView, {Marker} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
+import Geocoder from 'react-native-geocoding';
 
 import Search from '../Search';
 import Directions from '../Directions';
 import {getPixelSize} from '../../utils';
 import markerImg from '../../assets/marker.png';
+
+const apikey = process.env;
 
 import {
   LocationBox,
@@ -18,15 +21,23 @@ import {
   LocationTimeSmall,
 } from './styles';
 
+Geocoder.init(apikey);
+
 export default class Map extends Component {
   state = {
     region: null,
     destination: null,
+    duration: null,
+    location: null,
   };
 
   async componentDidMount() {
     Geolocation.getCurrentPosition(
       async ({coords: {latitude, longitude}}) => {
+        const response = await Geocoder.from({latitude, longitude});
+        const address = response.results[0].formatted_address;
+        const location = address.substring(0, address.indexOf(','))
+
         this.setState({
           location,
           region: {
@@ -61,7 +72,7 @@ export default class Map extends Component {
   };
 
   render() {
-    const {region, destination} = this.state;
+    const {region, destination, duration, location} = this.state;
 
     return (
       <View style={{flex: 1}}>
@@ -77,6 +88,8 @@ export default class Map extends Component {
                 origin={region}
                 destination={destination}
                 onReady={result => {
+                  this.setState({duration: Math.floor(result.duration)});
+
                   this.MapView.fitToCoordinates(result.coordinates, {
                     edgePadding: {
                       right: getPixelSize(50),
@@ -94,10 +107,10 @@ export default class Map extends Component {
                 image={markerImg}>
                 <LocationBox>
                   <LocationTimeBox>
-                    <LocationTimeText>31</LocationTimeText>
+                    <LocationTimeText>{duration}</LocationTimeText>
                     <LocationTimeSmall>M</LocationTimeSmall>
                   </LocationTimeBox>
-                  <LocationText>Rua das gerberas</LocationText>
+                  <LocationText>{location}</LocationText>
                 </LocationBox>
               </Marker>
 
