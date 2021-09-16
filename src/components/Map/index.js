@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 
-import {View} from 'react-native';
+import {View, Image} from 'react-native';
 
 import MapView, {Marker} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
@@ -8,12 +8,16 @@ import Geocoder from 'react-native-geocoding';
 
 import Search from '../Search';
 import Directions from '../Directions';
+import Details from '../Details';
 import {getPixelSize} from '../../utils';
+
 import markerImg from '../../assets/marker.png';
+import backImg from '../../assets/back.png'
 
 const apikey = process.env;
 
 import {
+  Back,
   LocationBox,
   LocationText,
   LocationTimeBox,
@@ -36,7 +40,7 @@ export default class Map extends Component {
       async ({coords: {latitude, longitude}}) => {
         const response = await Geocoder.from({latitude, longitude});
         const address = response.results[0].formatted_address;
-        const location = address.substring(0, address.indexOf(','))
+        const location = address.substring(0, address.indexOf(','));
 
         this.setState({
           location,
@@ -55,6 +59,10 @@ export default class Map extends Component {
         maximumAge: 1000,
       },
     );
+  }
+
+  handleBack = () =>{
+    this.setState({destination: null})
   }
 
   handleLocationSelected = (data, {geometry}) => {
@@ -95,7 +103,7 @@ export default class Map extends Component {
                       right: getPixelSize(50),
                       left: getPixelSize(50),
                       top: getPixelSize(50),
-                      bottom: getPixelSize(50),
+                      bottom: getPixelSize(350),
                     },
                   });
                 }}
@@ -125,7 +133,17 @@ export default class Map extends Component {
             </Fragment>
           )}
         </MapView>
-        <Search onLocationSelected={this.handleLocationSelected} />
+
+        {destination ? (
+          <>
+          <Back onPress={this.handleBack}>
+            <Image source={backImg}/>
+          </Back>
+          <Details />
+          </>
+        ) : (
+          <Search onLocationSelected={this.handleLocationSelected} />
+        )}
       </View>
     );
   }
