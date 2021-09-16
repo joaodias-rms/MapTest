@@ -6,7 +6,9 @@ import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete'
 const { apikey } = process.env
 
 export default class Search extends Component {
-  state = ({searchFocused} = false);
+  state = {
+    searchFocused: false
+  };
 
   render() {
     const {searchFocused} = this.state;
@@ -16,7 +18,7 @@ export default class Search extends Component {
       <GooglePlacesAutocomplete
         placeholder="Para onde?"
         placeholderTextColor="#333"
-        onPress={{onLocationSelected}}
+        onPress={onLocationSelected}
         query={{
           key: apikey,
           language: 'pt',
