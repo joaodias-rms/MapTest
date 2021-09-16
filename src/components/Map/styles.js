@@ -31,18 +31,22 @@ export const LocationText = styled.Text`
 export const LocationTimeBox = styled.View`
   background: #222;
   padding: 3px 8px;
-
 `;
 
 export const LocationTimeText = styled.Text`
   color: #fff;
   font-size: 12px;
   text-align: center;
-
 `;
 
 export const LocationTimeSmall = styled.Text`
-color: #fff;
-font-size: 10px;
-text-align: center;
+  color: #fff;
+  font-size: 10px;
+  text-align: center;
+`;
+
+export const Back = styled.TouchableOpacity`
+  position: absolute;
+  top: ${Platform.select({ios: 60, android: 40})};
+  left: 20px;
 `;
