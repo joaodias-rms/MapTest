@@ -3,6 +3,7 @@ import React, {Component, Fragment} from 'react';
 import {View} from 'react-native';
 
 import MapView, {Marker} from 'react-native-maps';
+import Geolocation from '@react-native-community/geolocation';
 
 import Search from '../Search';
 import Directions from '../Directions';
@@ -18,7 +19,7 @@ export default class Map extends Component {
   };
 
   async componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
+    Geolocation.getCurrentPosition(
       async ({coords: {latitude, longitude}}) => {
         this.setState({
           location,
