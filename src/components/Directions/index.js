@@ -1,13 +1,15 @@
 import React from 'react';
 import MapViewDirections from 'react-native-maps-directions';
 
+const { apikey } = process.env
+
 const Directions=({destination, origin, onReady})=> {
   return (
     <MapViewDirections
       destination={destination}
       origin={origin}
       onReady={onReady}
-      apikey="AIzaSyA9HhT5imbNVfYlTESPLs4EFTmxTrfdZOU"
+      apikey={apikey}
       strokeWidth={3}
       strokeColor="#333"
     />
