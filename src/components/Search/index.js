@@ -3,7 +3,8 @@ import {styles} from './style';
 
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 
-const { apikey } = process.env
+
+const  {APIKEY}  = process.env
 
 export default class Search extends Component {
   state = {
@@ -11,6 +12,7 @@ export default class Search extends Component {
   };
 
   render() {
+    
     const {searchFocused} = this.state;
     const {onLocationSelected} = this.props;
 
@@ -20,7 +22,7 @@ export default class Search extends Component {
         placeholderTextColor="#333"
         onPress={onLocationSelected}
         query={{
-          key: apikey,
+          key: APIKEY,
           language: 'pt',
         }}
         textInputProps={{

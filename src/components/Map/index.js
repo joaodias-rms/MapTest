@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 
 import {View, Image} from 'react-native';
-
+import {getPixelSize} from '../../utils';
 import MapView, {Marker} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoding';
@@ -9,12 +9,11 @@ import Geocoder from 'react-native-geocoding';
 import Search from '../Search';
 import Directions from '../Directions';
 import Details from '../Details';
-import {getPixelSize} from '../../utils';
 
 import markerImg from '../../assets/marker.png';
 import backImg from '../../assets/back.png'
 
-const apikey = process.env;
+const {APIKEY} = process.env;
 
 import {
   Back,
@@ -25,7 +24,7 @@ import {
   LocationTimeSmall,
 } from './styles';
 
-Geocoder.init(apikey);
+Geocoder.init(`${APIKEY}`);
 
 export default class Map extends Component {
   state = {
@@ -36,8 +35,8 @@ export default class Map extends Component {
   };
 
   async componentDidMount() {
-    Geolocation.getCurrentPosition(
-      async ({coords: {latitude, longitude}}) => {
+        Geolocation.getCurrentPosition(
+        async ({coords: {latitude, longitude}}) => {
         const response = await Geocoder.from({latitude, longitude});
         const address = response.results[0].formatted_address;
         const location = address.substring(0, address.indexOf(','));
@@ -52,7 +51,8 @@ export default class Map extends Component {
           },
         });
       },
-      () => {},
+    
+      (position) => {console.log(position);},
       {
         timeout: 2000,
         enableHighAccuracy: true,
@@ -98,7 +98,7 @@ export default class Map extends Component {
                 onReady={result => {
                   this.setState({duration: Math.floor(result.duration)});
 
-                  this.MapView.fitToCoordinates(result.coordinates, {
+                  this.mapView.fitToCoordinates(result.coordinates, {
                     edgePadding: {
                       right: getPixelSize(50),
                       left: getPixelSize(50),
